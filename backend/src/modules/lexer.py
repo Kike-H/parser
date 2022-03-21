@@ -1,193 +1,139 @@
 import ply.lex as lex
-# The result of the analysis
-result_lex = [] 
 
-# Reserved words
-reserved = (
-    'ABSTRACT',
-    'ASSERT',
-    'BREAK',
-    'CASE',
-    'CATCH',
-    'CLASS',
-    'CONST',
-    'DEFAULT',
-    'DO'
-    'NEW',
-    'PACKAGE',
-    'PRIVATE',
-    'PUBLIC'
+# resultado del analisis
+resultado_lexema = []
+
+reservada = (
+    # Palabras Reservadas
+    'INCLUDE',
+    'USING',
+    'NAMESPACE',
+    'STD',
+    'COUT',
+    'CIN',
+    'GET',
+    'CADENA',
     'RETURN',
-    'THIS',
-    'VOID'
-    'SYSTEM',
-    'OUT',
-    'PRINTLN'
+    'VOID',
+    'INT',
+    'ENDL',
 )
+tokens = reservada + (
+    'IDENTIFICADOR',
+    'ENTERO',
+    'ASIGNAR',
 
-tokens = reserved + (
-    'IDENTIFIER',
-    'INTEGER',
-    'STRING'
-    'BOOLEAN',
-    'LONG'
-    'BYTE',
-    'ASSIGN',
-
-    # Mathematical operators
-    'SUM',
-    'SUBS',
-    'MULTI',
+    'SUMA',
+    'RESTA',
+    'MULT',
     'DIV',
-    'POWER',
+    'POTENCIA',
     'MODULO',
-    'MINUSMINUS',
-    'PLUSPLUS',
-    
-    # Conditions
-    'IF',
-    'ELSE',
-    
-    #Loops
-    'WHILE',
-    'FOR',
-    
-    # Logic
+
+   'MINUSMINUS',
+   'PLUSPLUS',
+
+    #Condiones
+   'SI',
+    'SINO',
+    #Ciclos
+   'MIENTRAS',
+   'PARA',
+    #logica
     'AND',
     'OR',
     'NOT',
-    'LESSTHAN',
-    'MINOREQUAL',
-    'GREATERTHAN',
-    'GREATEREQUAL',
-    'EQUAL',
-    'DIFFERENT',
-
-    # Symbols
+    'MENORQUE',
+    'MENORIGUAL',
+    'MAYORQUE',
+    'MAYORIGUAL',
+    'IGUAL',
+    'DISTINTO',
+    # Symbolos
     'NUMERAL',
 
-    'PARLEFT',
-    'PARRIGHT',
-    'CORLEFT',
-    'CORRIGHT',
-    'KEYLEFT',
-    'KEYRIGHT',
+    'PARIZQ',
+    'PARDER',
+    'CORIZQ',
+    'CORDER',
+    'LLAIZQ',
+    'LLADER',
     
-    # Others
-    'SEMICOLON',
+    # Otros
+    'PUNTOCOMA',
     'COMA',
     'COMDOB',
-    'GREATHERRIGHT', #>>
-    'GREATHERLEFT', #<<
+    'MAYORDER', #>>
+    'MAYORIZQ', #<<
 )
 
+# Reglas de Expresiones Regualres para token de Contexto simple
 
-t_SUM = r'\+'
-t_SUBS = r'-'
+t_SUMA = r'\+'
+t_RESTA = r'-'
 t_MINUSMINUS = r'\-\-'
-
-t_MULTI = r'\*'
+# t_PUNTO = r'\.'
+t_MULT = r'\*'
 t_DIV = r'/'
 t_MODULO = r'\%'
-t_POWER = r'(\*{2} | \^)'
+t_POTENCIA = r'(\*{2} | \^)'
 
-t_ASSIGN = r'='
-
-# Logics expresions
+t_ASIGNAR = r'='
+# Expresiones Logicas
 t_AND = r'\&\&'
 t_OR = r'\|{2}'
 t_NOT = r'\!'
-t_LESSTHAN = r'<'
-t_GREATERTHAN = r'>'
-t_SEMICOLON = ';'
+t_MENORQUE = r'<'
+t_MAYORQUE = r'>'
+t_PUNTOCOMA = ';'
 t_COMA = r','
-t_PARLEFT = r'\('
-t_PARRIGHT = r'\)'
-t_CORLEFT = r'\['
-t_CORRIGHT = r'\]'
-t_KEYLEFT = r'{'
-t_KEYRIGHT = r'}'
+t_PARIZQ = r'\('
+t_PARDER = r'\)'
+t_CORIZQ = r'\['
+t_CORDER = r'\]'
+t_LLAIZQ = r'{'
+t_LLADER = r'}'
 t_COMDOB = r'\"'
 
 
 
-def t_ABSTRACT(t):
-    r'abstract'
+def t_INCLUDE(t):
+    r'include'
     return t
 
-def t_ASSERT(t):
-    r'assert'
+def t_USING(t):
+    r'using'
     return t
 
-def t_BREAK(t):
-    r'break'
+def t_NAMESPACE(t):
+    r'namespace'
     return t
 
-def t_CASE(t):
-    r'case'
+def t_STD(t):
+    r'std'
     return t
 
-def t_CATCH(t):
-    r'catch'
+def t_COUT(t):
+    r'cout'
     return t
 
-def t_CLASS(t):
-    r'class'
+def t_CIN(t):
+    r'cin'
     return t
 
-def t_CONST(t):
-    r'const'
+def t_GET(t):
+    r'get'
     return t
 
-def t_PRIVATE(t):
-    r'private'
+def t_ENDL(t):
+    r'endl'
     return t
 
-def t_DEFAULT(t):
-    r'default'
-    return t
-
-def t_DO(t):
-    r'do'
-    return t
-
-def t_NEW(t):
-    r'new'
-    return t
-
-def t_PACKAGE(t):
-    r'package'
-    return t
-
-def t_PUBLIC(t):
-    r'public'
-    return t
-
-def t_THIS(t):
-    r'this'
-    return t
-
-def t_VOID(t):
-    r'void'
-    return t
-
-def t_SYSTEM(t):
-    r'system'
-    return t
-
-def t_OUT(t):
-    r'out'
-    return t
-
-def t_PRINTLN(t):
-    r'println'
-    return t
-
-def t_ELSE(t):
+def t_SINO(t):
     r'else'
     return t
 
-def t_IF(t):
+def t_SI(t):
     r'if'
     return t
 
@@ -195,24 +141,28 @@ def t_RETURN(t):
    r'return'
    return t
 
-def t_WHILE(t):
+def t_VOID(t):
+   r'void'
+   return t
+
+def t_MIENTRAS(t):
     r'while'
     return t
 
-def t_FOR(t):
+def t_PARA(t):
     r'for'
     return t
 
-def t_INTEGER(t):
+def t_ENTERO(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
-def t_IDENTIFIER(t):
+def t_IDENTIFICADOR(t):
     r'\w+(_\d\w)*'
     return t
 
-def t_STRING(t):
+def t_CADENA(t):
    r'\"?(\w+ \ *\w*\d* \ *)\"?'
    return t
 
@@ -224,27 +174,27 @@ def t_PLUSPLUS(t):
     r'\+\+'
     return t
 
-def t_MINUSEQUAL(t):
+def t_MENORIGUAL(t):
     r'<='
     return t
 
-def t_GREATEREQUAL(t):
+def t_MAYORIGUAL(t):
     r'>='
     return t
 
-def t_EQUAL(t):
+def t_IGUAL(t):
     r'=='
     return t
 
-def t_GREATERRIGHT(t):
+def t_MAYORDER(t):
     r'<<'
     return t
 
-def t_GREATERLEFT(t):
+def t_MAYORIZQ(t):
     r'>>'
     return t
 
-def t_DIFFERENT(t):
+def t_DISTINTO(t):
     r'!='
     return t
 
@@ -255,19 +205,43 @@ def t_newline(t):
 def t_comments(t):
     r'/\*(.|\n)*?\*/'
     t.lexer.lineno += t.value.count('\n')
-    print("Multi line comments")
+    print("Comentario de multiple linea")
 
 def t_comments_ONELine(t):
      r'\/\/(.)*\n'
      t.lexer.lineno += 1
-     print("Comment line")
+     print("Comentario de una linea")
 t_ignore =' \t'
 
-def t_error(t):
-    global result_lex
-    state = "** Invalid Token in the line {:4} value {:16} position {:4}".format(str(t.lineno), str(t.value),
+def t_error( t):
+    global resultado_lexema
+    estado = "** Token no valido en la Linea {:4} Valor {:16} Posicion {:4}".format(str(t.lineno), str(t.value),
                                                                       str(t.lexpos))
-    result_lex.append(state)
+    resultado_lexema.append(estado)
     t.lexer.skip(1)
 
-analyzer = lex.lex()
+# Prueba de ingreso
+def prueba(data):
+    global resultado_lexema
+
+    analizador = lex.lex()
+    analizador.input(data)
+
+    resultado_lexema.clear()
+    while True:
+        tok = analizador.token()
+        if not tok:
+            break
+        # print("lexema de "+tok.type+" valor "+tok.value+" linea "tok.lineno)
+        estado = "Linea {:4} Tipo {:16} Valor {:16} Posicion {:4}".format(str(tok.lineno),str(tok.type) ,str(tok.value), str(tok.lexpos) )
+        resultado_lexema.append(estado)
+    return resultado_lexema
+
+ # instanciamos el analizador lexico
+analizador = lex.lex()
+
+if __name__ == '__main__':
+    while True:
+        data = input("ingrese: ")
+        prueba(data)
+        print(resultado_lexema)
