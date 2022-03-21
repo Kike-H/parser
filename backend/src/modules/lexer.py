@@ -255,12 +255,12 @@ def t_newline(t):
 def t_comments(t):
     r'/\*(.|\n)*?\*/'
     t.lexer.lineno += t.value.count('\n')
-    print("Comentario de multiple linea")
+    print("Multi line comments")
 
 def t_comments_ONELine(t):
      r'\/\/(.)*\n'
      t.lexer.lineno += 1
-     print("Comentario de una linea")
+     print("Comment line")
 t_ignore =' \t'
 
 def t_error(t):
