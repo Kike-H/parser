@@ -270,19 +270,4 @@ def t_error(t):
     result_lex.append(state)
     t.lexer.skip(1)
 
-def test (data: str):
-    """This method analysis the string and return list with the answers"""
-    global result_lex
-
-    analyzer = lex.lex() 
-    analyzer.input(data)
-
-    result_lex.clear()
-
-    while True:
-        tok = analyzer.token()
-        if not tok:
-            break
-        state = "Line {:4} Type {:16} Value {:16} position {:4}".format(str(tok.lineno), str(tok.type), str(tok.value), str(tok.lexpos))
-        result_lex.append(state)
-    return result_lex
+analyzer = lex.lex()
