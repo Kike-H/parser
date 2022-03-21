@@ -1,5 +1,6 @@
-from modules.syntactic import test
+from modules.syntactic import prueba_sintactica
 
 if __name__ == '__main__':
-    data = input("Data: ")
-    print(test(data))
+    while True:
+            data = input(">> ")
+            print(prueba_sintactica(data))

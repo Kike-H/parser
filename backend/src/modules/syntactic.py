@@ -1,4 +1,4 @@
-from lexer import tokens, analizador
+from modules.lexer import tokens, analizador
 import ply.yacc as yacc
 
 resultado_gramatica = []
